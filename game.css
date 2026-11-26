@@ -1,0 +1,162 @@
+
+:root{--ink:#272d25;--paper:#f7f6ef;--safe-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;overscroll-behavior:none}body{position:relative;height:100dvh;font-family:'Naiwa Street Hand',cursive;color:var(--ink);background:white;-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer;border:0;background:transparent;touch-action:manipulation;min-height:44px}button:focus-visible{outline:2px dashed #6f785d;outline-offset:4px}.icon{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.stage{position:absolute;inset:0;background:#fff;overflow:hidden;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}.stage.dragging{cursor:grabbing}.scene-layer{position:absolute;left:0;top:0;transform-origin:0 0;contain:layout style}.scene-layer>svg{display:block;width:100%;height:100%;touch-action:none}.target{cursor:pointer;outline:none}.target:focus-visible{filter:drop-shadow(0 0 4px #d5b03e)}.target [data-color]{transition:fill .28s ease}.target.found{cursor:default}.stage svg>title,.stage svg>desc{pointer-events:none}
+.toast{position:fixed;z-index:10;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,-8px);padding:10px 18px;border-radius:18px 22px 19px 23px;background:var(--ink);color:white;font-size:13px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}.toast.visible{opacity:1;transform:translate(-50%,0)}.found-burst{pointer-events:none;fill:none;stroke:#e5bd3c;stroke-width:5;animation:burst .65s ease-out forwards}
+dialog{border:1px solid #d9ddce;border-radius:24px;padding:0;background:#fffef9;color:var(--ink);box-shadow:0 24px 100px #1a281d28;width:380px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto}dialog:focus{outline:none}dialog::backdrop{background:#28362955;backdrop-filter:blur(3px)}.dialog-content{padding:30px;text-align:center;position:relative}.hero-figure{width:125px;height:160px;object-fit:contain;display:block;margin:0 auto 10px}.dialog-content h2{font-size:27px;letter-spacing:1px;line-height:1.4;margin:0 0 12px}.dialog-content p{font-size:13px;line-height:1.9;color:#78816f;margin:10px 0}.eyebrow{font-size:10px;color:#8d967d;letter-spacing:2px;margin-bottom:14px}.primary{width:100%;border-radius:12px;padding:14px 22px;background:var(--ink);color:#fffef9;font-size:14px;font-weight:650;margin-top:10px}.secondary{width:100%;border-radius:12px;padding:12px;font-size:12px;color:#7d8774;margin-top:7px}.success-num{font-size:50px;letter-spacing:-3px;font-variant-numeric:tabular-nums;margin:0 0 14px}.success-num span{font-size:18px;color:#8b957f;letter-spacing:0}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}@keyframes burst{from{r:25;opacity:1}to{r:90;opacity:0}}
+@media(max-width:650px){.dialog-content{padding:26px}.dialog-content h2{font-size:25px}.hero-figure{height:145px}}
+@media(max-height:500px){.dialog-content{padding:16px 26px}.hero-figure{height:80px;margin-bottom:2px}.dialog-content h2{font-size:21px;line-height:1.3;margin-bottom:6px}.primary{margin-top:6px;padding:11px 20px}.success-num{font-size:30px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.remaining-badge{position:absolute;z-index:3;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:180px;height:65px;pointer-events:none;user-select:none;-webkit-user-select:none}.remaining-badge>svg{display:block;width:100%;height:100%;overflow:visible}.remaining-badge text{font-family:'Naiwa Street Hand',cursive;font-size:23px;fill:#171b16;stroke:#171b16;stroke-width:.4;paint-order:stroke fill}
+@media(max-width:650px),(max-height:500px){.remaining-badge{width:148px;height:auto;bottom:calc(8px + env(safe-area-inset-bottom,0px))}}
+
+.loading .stage,.loading .remaining-badge{visibility:hidden}.loading-screen{position:fixed;inset:0;z-index:50;background:#f7f6ef;display:grid;place-items:center;text-align:center}.loading-card{padding:28px;color:#272d25}.loading-card h1{font-size:25px;letter-spacing:3px;margin:12px 0}.loading-card p{font-size:13px;color:#707663;margin:16px 0}.loading-drawing{display:block;width:152px;height:160px;object-fit:contain;margin:0 auto}.loading-dots{display:flex;justify-content:center;gap:9px;height:20px}.loading-dots i{width:6px;height:6px;background:#8e9b70;border-radius:50%;animation:loading-bounce 1s ease-in-out infinite}.loading-dots i:nth-child(2){animation-delay:.15s}.loading-dots i:nth-child(3){animation-delay:.3s}@keyframes loading-bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}@media(prefers-reduced-motion:reduce){.loading-dots i{animation:none}}
+
+#win{isolation:isolate;overflow:hidden;background:#fffef9}#win .win-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.16;pointer-events:none;user-select:none;z-index:-1}#win .dialog-content{position:relative;padding-top:56px}#win .eyebrow,#win .dialog-content p,#win .secondary{color:#59634f}@media(max-height:500px){#win{overflow:auto}}
+
+/* Hand-drawn vector frames; strokes retain their weight at phone sizes. */
+dialog,#win{border:0;border-radius:0;box-shadow:none;background-color:transparent;background-image:url("assets/2abb4c93ea43aaeb9647.svg");background-size:100% 100%;background-repeat:no-repeat;color:#171914}
+.dialog-content{padding:34px 30px}
+.primary,.secondary{background-color:transparent;background-image:url("assets/fb7b1b0f2c606bfafc71.svg");background-repeat:no-repeat;background-size:100% 100%;border-radius:0;color:#171914;font-weight:700;min-height:52px;padding:16px 20px}
+.secondary{background-image:url("assets/2d5a32987d72978931f1.svg");font-size:13px}
+#win .secondary{color:#171914}
+.primary:hover,.secondary:hover{filter:brightness(.97)}
+.primary:active,.secondary:active{transform:translateY(1px)}
+button:focus-visible{outline:2px dashed #171914;outline-offset:2px}
+.toast{background-color:transparent;background-image:url("assets/2d5a32987d72978931f1.svg");background-size:100% 100%;border-radius:0;color:#171914;padding:15px 24px}
+.loading-dots i{background:#171914}
+.lettering{display:inline-block;max-width:100%;height:1.3em;vertical-align:-.13em;object-fit:contain}.loading-card h1 .lettering{height:1.35em}.dialog-content h2 .lettering{height:1.35em}.dialog-content p .lettering{height:1.45em}.eyebrow .lettering{height:1.5em}.primary .lettering,.secondary .lettering{height:1.55em}.toast .lettering{height:1.5em}
+@media(max-width:650px){.dialog-content{padding:30px 26px}}
+@media(max-height:500px){.dialog-content{padding:22px 26px}.primary,.secondary{min-height:44px;padding:12px 20px}}
+.corner-actions{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:8px;align-items:center;transition:opacity .2s ease}
+/* Square by construction: aspect-ratio plus flex:none keeps these true circles
+   even inside a flex row, or when the button would otherwise be squeezed. */
+.action-btn{flex:0 0 auto;min-width:0;min-height:0;width:44px;height:44px;aspect-ratio:1/1;padding:0;display:grid;place-items:center;border-radius:50%;border:1.6px solid #171914;background:#fffef9e6;color:#171914;cursor:pointer;box-sizing:border-box;transition:transform .15s ease,background .15s ease}
+.action-btn svg{display:block;width:21px;height:21px}
+.lang-btn span{display:block;font-family:'Naiwa Street Hand',cursive;font-size:13px;font-weight:700;letter-spacing:.5px;line-height:1}
+#sound-toggle .sound-off{display:none}
+#sound-toggle.muted .sound-on{display:none}
+#sound-toggle.muted .sound-off{display:block}
+.action-btn:active{transform:scale(.94)}
+.action-btn:focus-visible{outline:2px solid #171914;outline-offset:3px}
+body.loading .corner-actions{opacity:0;pointer-events:none}
+/* A <dialog> sits in the top layer, so an open modal would bury a fixed button.
+   While one is up the buttons dock inside it, inset far enough to clear the
+   panel's 24px corner radius instead of straddling the outline. */
+.corner-actions.docked{position:absolute;top:20px;right:20px;bottom:auto}
+.corner-actions.docked .action-btn{width:34px;height:34px;border-width:1.3px;background:#fffef9}
+.corner-actions.docked .action-btn svg{width:17px;height:17px}
+.corner-actions.docked .lang-btn span{font-size:11px}
+@media(max-height:500px){.action-btn{width:38px;height:38px}.action-btn svg{width:19px;height:19px}}
+/* Narrow phones: the action row must not creep into the count badge, which is
+   centred at the bottom with a fixed 180px width. */
+@media(max-width:650px){.corner-actions{gap:6px;right:calc(10px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px))}.action-btn{width:38px;height:38px}.action-btn svg{width:19px;height:19px}}
+/* Safari below 15.4: an <dialog> with the open attribute is a plain block, so
+   fake the modal layer and lock the page behind it. */
+dialog.fallback{position:fixed;inset:0;margin:auto;display:block;z-index:40;max-height:calc(100dvh - 24px);max-height:calc(100vh - 24px);overflow:auto}
+body.has-modal::before{content:'';position:fixed;inset:0;background:#28362955;z-index:35}
+body.has-modal{overflow:hidden}
+
+[hidden]{display:none!important}
+#ink-transition{
+ position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;
+ margin:0;padding:0;border:0;border-radius:0;outline:0;background:transparent;box-shadow:none;
+ overflow:hidden;touch-action:none;
+}
+#ink-transition::backdrop{background:transparent;backdrop-filter:none}
+#ink-transition canvas{display:block;width:100%;height:100%}
+.ink-arriving::after{content:"";position:fixed;inset:0;background:#f6f5ed;z-index:2147483647}
+.home-layout{isolation:isolate;background:#ddded3}
+.home-layout::before,.home-layout::after{content:"";position:absolute;pointer-events:none}
+.home-layout::before{
+ inset:-9px;z-index:-2;
+ background:var(--park-backdrop) 45% 52% / cover no-repeat;
+ filter:blur(clamp(1.6px,.18vw,3.2px));opacity:.61;
+}
+.home-layout::after{
+ inset:0;z-index:-1;
+ background:linear-gradient(90deg,rgba(247,246,239,.89),rgba(247,246,239,.79) 32%,rgba(247,246,239,.22) 67%,rgba(247,246,239,.12));
+}
+@media(orientation:portrait){
+ .home-layout::after{background:linear-gradient(180deg,rgba(247,246,239,.84) 0%,rgba(247,246,239,.86) 33%,rgba(247,246,239,.22) 67%)}
+}
+.level-card:disabled,.level-card:disabled:hover{cursor:default;background:#efeee8;color:#575950}
+.level-card:disabled img{opacity:.55}
+.level-preview{position:relative;display:block;margin-bottom:14px}
+.level-preview img{margin:0}
+.level-card .level-preview img{margin-bottom:0}
+.level-lock{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.level-lock svg{height:76%;width:auto;max-width:60%}
+.action-btn.scene-back{position:fixed;z-index:5;top:calc(12px + env(safe-area-inset-top,0px));left:calc(14px + env(safe-area-inset-left,0px));width:44px;height:44px}
+.home-screen{position:fixed;inset:0;z-index:20;background:var(--paper);overflow:auto;padding:0;font-family:'Naiwa Street Hand','KaiTi',cursive}
+.home-layout{position:relative;width:100%;height:100dvh;min-height:360px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:5vw;padding:0 max(6vw,env(safe-area-inset-right)) 0 max(6vw,env(safe-area-inset-left));align-items:center}
+.home-copy{padding:20px 0 55px}.home-title{margin:0 0 25px}.home-title .lettering{width:360px;height:auto;max-width:100%}.home-description{font-size:clamp(17px,1.8vw,23px);line-height:1.85;max-width:400px;margin:0 0 45px}
+.home-nav{display:grid;justify-items:start;gap:14px}.home-nav button{font-size:clamp(24px,2.7vw,34px);padding:8px 22px 8px 0;text-align:left;position:relative;min-width:190px}.home-nav button::after{content:'';position:absolute;left:0;right:24px;bottom:2px;height:2px;background:currentColor;transform:rotate(-1deg);opacity:0}.home-nav button:hover::after,.home-nav button:focus-visible::after{opacity:1}.home-nav button[aria-disabled=true]{cursor:default}
+.home-mascot{position:relative;width:min(100%,450px);justify-self:end;align-self:center}.home-mascot>img{display:block;width:100%;height:auto;max-height:72dvh}.home-percent{position:absolute;inset:53% 0 auto;text-align:center;font-size:clamp(48px,6vw,78px);line-height:1;letter-spacing:2px}.home-percent small{font-size:.44em}.home-percent-label{position:absolute;inset:66% 0 auto;text-align:center;font-size:16px;letter-spacing:3px}
+body.at-home .stage,body.at-home .remaining-badge{visibility:hidden}body.at-home .corner-actions{top:calc(22px + env(safe-area-inset-top));right:calc(30px + env(safe-area-inset-right));bottom:auto}
+.level-picker{max-width:1180px;margin:10px auto}.picker-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.picker-heading h2{font-size:32px;margin:0}.home-back{font-size:18px;padding:10px}.level-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.level-card{position:relative;text-align:left;background:#fffef9;border:2px solid #252820;border-radius:14px 9px 17px 10px;padding:20px;overflow:hidden}.level-card:hover{background:#faf3d9}.level-card img{width:100%;height:150px;object-fit:cover;object-position:center;display:block;margin-bottom:14px;filter:grayscale(1)}.level-card strong{display:block;font-size:25px;margin-bottom:6px}.level-card span{font-size:16px}.level-card .level-done{float:right;color:#5f6b40;font-size:15px}.home-return{font-size:15px;display:block;width:100%;margin-top:10px;padding:8px}
+.home-copy{position:relative;z-index:1;padding:55px 0 20px}
+/* Match the SVG's tight bottom bound to the viewport edge without stretching it. */
+.home-mascot{position:absolute;right:5vw;bottom:-8px;width:min(45vw,69dvh);aspect-ratio:660/811}
+.home-mascot>img{display:block;width:100%;height:100%;max-height:none}
+.home-percent-label{top:calc(53% + clamp(48px,6vw,78px) + 14px)}
+.level-picker{max-width:1300px;margin:auto;padding:90px max(6vw,env(safe-area-inset-left)) max(30px,env(safe-area-inset-bottom))}
+/* Portrait composition: copy above, full silhouette anchored below. */
+@media(orientation:portrait){
+ .home-layout{display:block;min-height:580px;padding:0 7vw}
+ .home-copy{padding:calc(85px + env(safe-area-inset-top)) 0 0;max-width:86vw}
+ .home-title{margin-bottom:16px}.home-title .lettering{width:min(76vw,360px)}
+ .home-description{font-size:clamp(15px,3.8vw,21px);line-height:1.7;max-width:80vw;margin-bottom:20px}
+ .home-nav{gap:5px}.home-nav button{font-size:clamp(22px,5.5vw,30px);padding:6px 12px 6px 0;min-width:0}
+ .home-mascot{right:4vw;width:min(73vw,39dvh)}
+ .home-percent{font-size:clamp(42px,11vw,70px)}
+ .home-percent-label{font-size:clamp(11px,2.8vw,16px);letter-spacing:1px;top:calc(53% + clamp(42px,11vw,70px) + 10px)}
+}
+@media(max-width:650px){
+ .level-grid{grid-template-columns:1fr;gap:16px}.level-card img{height:135px}.picker-heading h2{font-size:26px}
+}
+@media(max-width:650px), (pointer:coarse) and (max-height:540px){
+ .corner-actions,body.at-home .corner-actions,.corner-actions.docked{
+  position:fixed;top:auto;right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));gap:12px;
+ }
+ #corner-actions .action-btn{position:relative;width:32px;height:32px;border-width:1.3px}
+ .corner-actions .action-btn::after{content:'';position:absolute;inset:-6px}
+ #corner-actions .action-btn svg{width:16px;height:16px}
+ .corner-actions .lang-btn span{font-size:11px}
+ .level-picker{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+}
+@media(max-height:500px) and (orientation:landscape){
+ .home-copy{padding:45px 0 0}.home-title{margin-bottom:10px}.home-title .lettering{width:250px}
+ .home-description{font-size:15px;line-height:1.6;margin-bottom:12px}.home-nav{gap:0}.home-nav button{font-size:23px;padding-top:4px;padding-bottom:4px}
+ .home-percent{font-size:44px}.home-percent-label{font-size:12px;top:calc(53% + 54px)}
+}
+/* Keep the existing count and action buttons separate on narrow phones. */
+@media(max-width:420px){.remaining-badge{left:calc(50% - 64px)}}
+
+/* Anchor both lines in the cream belly patch of the 660 × 811 drawing. */
+.home-mascot.completed { container-type: inline-size; }
+.home-mascot.completed .home-percent,
+.home-mascot.completed .home-percent-label {
+  left: 21%;
+  right: 48%;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.home-mascot.completed .home-percent {
+  top: 49.5%;
+  font-size: 6.5cqw;
+}
+.home-mascot.completed .home-percent-label {
+  top: 55.7%;
+  font-size: 3cqw;
+}
+#share-card{box-sizing:border-box;width:min(700px,94vw);margin:auto;padding:20px;background:#fffaf0;border:2px solid #25261e;border-radius:14px;overflow:auto;color:#25261e}
+#share-card p{margin:0 0 12px;line-height:1.6}
+#share-preview{display:block;max-width:100%;max-height:57vh;margin:auto;object-fit:contain}
+#share-card [hidden]{display:none}
+.share-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.share-actions>*{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1.5px solid currentColor;border-radius:7px;padding:8px 14px;text-align:center;text-decoration:none;color:inherit;background:#fffefa;font:inherit;line-height:1.2}
+#share-save{background:#f4de87}
+#share-status{display:block;overflow-wrap:anywhere}

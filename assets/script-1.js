@@ -1,0 +1,1 @@
+try{const stamp=Number(sessionStorage.getItem('naiwa.transition'));sessionStorage.removeItem('naiwa.transition');if(Date.now()-stamp<15000)document.documentElement.classList.add('ink-arriving')}catch{}
